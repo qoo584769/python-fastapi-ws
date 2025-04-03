@@ -242,7 +242,7 @@ class WebSocketManager:
 				],
 				'messages': [],
 			}
-			room_id = await self.rooms_collection.insert_one(room).inserted_id
+			room_id = await self.rooms_collection.insert_one(room)
 			await self.users_collection.update_one(
 				{'_id': friend['_id']},
 				{
@@ -250,11 +250,11 @@ class WebSocketManager:
 						'friends': {
 							'friend_id': str(user['_id']),
 							'friend_name': user['username'],
-							'friend_room_id': str(room_id),
+							'friend_room_id': str(room_id.inserted_id),
 							'friend_email': user_email,
 						},
 						'rooms': {
-							'room_id': str(room_id),
+							'room_id': str(room_id.inserted_id),
 							'room_name': user['username'],
 							'room_type': 'friend',
 						},
