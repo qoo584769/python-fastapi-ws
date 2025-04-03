@@ -268,11 +268,11 @@ class WebSocketManager:
 						'friends': {
 							'friend_id': str(friend['_id']),
 							'friend_name': friend['username'],
-							'friend_room_id': str(room_id),
+							'friend_room_id': str(room_id.inserted_id),
 							'friend_email': friend_email,
 						},
 						'rooms': {
-							'room_id': str(room_id),
+							'room_id': str(room_id.inserted_id),
 							'room_name': friend['username'],
 							'room_type': 'friend',
 						},
@@ -285,14 +285,14 @@ class WebSocketManager:
 				'friend_id': str(friend['_id']),
 				'friend_email': friend_email,
 				'friend_name': friend['username'],
-				'friend_room_id': str(room_id),
+				'friend_room_id': str(room_id.inserted_id),
 			}
 			response_to_friend = {
 				'type': 'friend_added',
 				'friend_id': str(user['_id']),
 				'friend_email': user_email,
 				'friend_name': user['username'],
-				'friend_room_id': str(room_id),
+				'friend_room_id': str(room_id.inserted_id),
 			}
 
 			if friend_email in self.connected_clients:
